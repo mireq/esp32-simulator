@@ -1,0 +1,12 @@
+[submodule "src/freertos/src"]
+	path = src/freertos/src
+	url = https://github.com/mireq/Posix_GCC_Simulator.git
+[submodule "src/lwip/src"]
+	path = src/lwip/src
+	url = https://git.savannah.nongnu.org/git/lwip.git
+[submodule "src/lwip/contrib"]
+	path = src/lwip/contrib
+	url = https://git.savannah.nongnu.org/git/lwip/lwip-contrib.git
+[submodule "src/mbedtls/src"]
+	path = src/mbedtls/src
+	url = https://github.com/ARMmbed/mbedtls.git
