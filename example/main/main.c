@@ -1,5 +1,11 @@
 #include "freertos/FreeRTOS.h"
 
+#include "lwip/dns.h"
+#include "lwip/err.h"
+#include "lwip/netdb.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+
 #include "esp_event.h"
 #include "esp_log.h"
 #include "esp_system.h"
@@ -21,6 +27,31 @@ ESP_EVENT_DEFINE_BASE(NETWORK_EVENT);
 esp_event_loop_handle_t event_loop;
 
 
+static void example_network_access() {
+	const struct addrinfo hints = {
+		.ai_family = AF_INET,
+		.ai_socktype = SOCK_STREAM,
+	};
+
+	ESP_LOGI(TAG, "DNS lookup. Address=github.com");
+
+	struct addrinfo *res;
+	int err = getaddrinfo("github.com", "443", &hints, &res);
+
+	if (err) {
+		ESP_LOGE(TAG, "Cannot resolve: %d", err);
+		if (res) {
+			freeaddrinfo(res);
+		}
+		return;
+	}
+
+	char address[100];
+	inet_ntop(res->ai_family, &((struct sockaddr_in *)res->ai_addr)->sin_addr, address, sizeof(address));
+	ESP_LOGI(TAG, "DNS lookup succeeded. IP=%s", address);
+}
+
+
 static void on_network_event(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data) {
 	switch (event_id) {
 		case NETWORK_DISCONNECTED:
@@ -28,6 +59,7 @@ static void on_network_event(void* arg, esp_event_base_t event_base, int32_t eve
 			break;
 		case NETWORK_CONNECTED:
 			ESP_LOGI(TAG, "Connected");
+			example_network_access();
 			break;
 	}
 }
