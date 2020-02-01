@@ -1,0 +1,47 @@
+#!/sbin/nft -f
+
+flush ruleset
+
+
+table inet filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+		ct state invalid counter drop
+		ct state {established, related} counter accept
+		iif lo accept
+		iif != lo ip daddr 127.0.0.1/8 counter drop
+		iif != lo ip6 daddr ::1/128 counter drop
+		ip protocol icmp counter accept
+		ip6 nexthdr icmpv6 counter accept
+		iifname tap0 accept
+	}
+
+	chain forward {
+		type filter hook forward priority 0; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority 0; policy accept;
+	}
+}
+
+
+table ip nat {
+	chain input {
+		type nat hook input priority 0; policy accept;
+		ip protocol icmp accept
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority 0; policy accept;
+	}
+
+	chain postrouting {
+		type nat hook postrouting priority 100; policy accept;
+		ip daddr != 10.0.0.0/24 ip saddr 10.0.0.0/24 masquerade;
+	}
+
+	chain output {
+		type nat hook output priority 0; policy accept;
+	}
+}
