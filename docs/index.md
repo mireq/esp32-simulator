@@ -105,14 +105,10 @@ idf.py build
 
 ```
 docker build -t esp32-simulator .
-docker run --cap-add=NET_ADMIN --device /dev/net/tun:/dev/net/tun --name esp32-simulator -v `pwd`:/root/simulator -it esp32-simulator
+docker run --cap-add=NET_ADMIN --device /dev/net/tun:/dev/net/tun --name esp32-simulator -v `pwd`:/root/simulator -d esp32-simulator
+
+docker exec -i -t esp32-simulator bash
 cd ~/simulator/example
 idf.build
 ./build/example
-```
-
-To run shell later execute:
-
-```
-docker exec -i -t esp32-simulator bash
 ```
