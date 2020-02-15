@@ -13,3 +13,4 @@ include_directories(
 )
 list(TRANSFORM FREERTOS_SOURCES PREPEND ${CMAKE_CURRENT_SOURCE_DIR}/src/FreeRTOS_Posix/FreeRTOS_Kernel/)
 add_library(freertos STATIC ${FREERTOS_SOURCES})
+add_definitions(-g3 -ggdb)
