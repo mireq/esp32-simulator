@@ -34,6 +34,7 @@ add_library(simulator STATIC
 	esp_heap_caps.c
 	esp_log.c
 	startup.c
+	"$ENV{IDF_PATH}/components/esp_common/src/esp_err_to_name.c"
 	"$ENV{IDF_PATH}/components/esp_event/esp_event.c"
 )
 
