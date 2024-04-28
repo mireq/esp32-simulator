@@ -109,6 +109,6 @@ docker run --cap-add=NET_ADMIN --device /dev/net/tun:/dev/net/tun --name esp32-s
 
 docker exec -i -t esp32-simulator bash
 cd ~/simulator/example
-idf.build
+idf.py build
 ./build/example
 ```
