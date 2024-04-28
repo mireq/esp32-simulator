@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stddef.h>
 
 #define MALLOC_CAP_SPIRAM 0
 #define MALLOC_CAP_DEFAULT 0
