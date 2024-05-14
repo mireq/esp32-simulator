@@ -95,7 +95,7 @@ cd esp
 git clone -b release/v4.1 --recursive https://github.com/espressif/esp-idf.git
 ./esp-idf/install.sh
 . ./esp-idf/export.sh
-git clone https://github.com/mireq/esp32-simulator
+git clone --recursive https://github.com/mireq/esp32-simulator
 cd simulator/example
 idf.py build
 ./build/example
