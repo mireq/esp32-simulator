@@ -92,7 +92,7 @@ table ip nat {
 sudo apt install -y git wget flex bison gperf python3 python3-pip python3-setuptools python3-serial python3-click python3-cryptography python3-future python3-pyparsing python3-pyelftools cmake ninja-build ccache libffi-dev libssl-dev libusb-1.0-0
 mkdir esp
 cd esp
-git clone -b release/v4.1 --recursive https://github.com/espressif/esp-idf.git
+git clone -b release/v5.2 --recursive https://github.com/espressif/esp-idf.git
 ./esp-idf/install.sh
 . ./esp-idf/export.sh
 git clone --recursive https://github.com/mireq/esp32-simulator
